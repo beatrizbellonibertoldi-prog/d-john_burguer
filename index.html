@@ -437,66 +437,15 @@
                 <input type="text" id="customer-name" placeholder="Seu Nome Completo">
                 <input type="text" id="customer-address" placeholder="Endereco de Entrega">
                 <textarea id="order-notes" placeholder="Observacoes (opcional)"></textarea>
-                <button class="finalize-order-btn" onclick="showPixPayment()">Pagar via Pix</button>
+                <p class="delivery-warning">
+                    Atenção: o valor final ainda pode ter acréscimo da taxa de entrega. Envie seu endereço para calcularmos certinho pelo WhatsApp.
+                </p>
+                <button class="finalize-order-btn" onclick="sendToWhatsApp()">Continuar pedido pelo WhatsApp</button>
                 <div class="secure-badge">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#555"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/></svg>
                     Pedido enviado com segurança via WhatsApp
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- MODAL: PAGAMENTO PIX -->
-    <div class="modal" id="pixModal">
-        <div class="modal-content glass pix-content">
-            <button class="close-modal" onclick="closePixModal()">×</button>
-            <div class="pix-header">
-                <div class="pix-logo-badge">PIX</div>
-                <h2>Pagamento via Pix</h2>
-                <p class="pix-subtitle">Escaneie o QR Code ou copie a chave abaixo</p>
-            </div>
-            <div class="pix-total-box">
-                <span class="pix-total-label">Total a pagar</span>
-                <span class="pix-total-value" id="pix-total-value">R$ 0,00</span>
-            </div>
-            <div class="qr-wrapper">
-                <img src="img/qrcode.jpeg" alt="">
-                <p class="qr-label">Pague por aqui</p>
-            </div>
-            <div class="pix-key-box">
-                <span class="pix-key-label">Chave Pix</span>
-                <div class="pix-key-row">
-                    <span class="pix-key-value" id="pix-key-display"></span>
-                    <button class="copy-pix-btn" id="copy-pix-btn" onclick="copyPixKey()">Copiar Chave</button>
-                </div>
-            </div>
-            <div class="pix-steps">
-                <div class="pix-step"><span class="step-num">1</span><span>Abra o app do seu banco</span></div>
-                <div class="pix-step"><span class="step-num">2</span><span>Escaneie o QR Code ou cole a chave Pix</span></div>
-                <div class="pix-step"><span class="step-num">3</span><span>Confirme o valor e finalize</span></div>
-                <div class="pix-step"><span class="step-num">4</span><span>Clique no botao abaixo apos pagar</span></div>
-            </div>
-            <button class="confirm-payment-btn" onclick="confirmPayment()">
-                Ja Realizei o Pagamento ✓
-            </button>
-        </div>
-    </div>
-
-    <!-- MODAL: CONFIRMACAO FINAL -->
-    <div class="modal" id="confirmModal">
-        <div class="modal-content glass confirm-content">
-            <div class="confirm-checkmark">
-                <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
-                    <circle class="check-circle" cx="26" cy="26" r="25" fill="none"/>
-                    <path class="check-mark" fill="none" d="M14 27l8 8 16-16"/>
-                </svg>
-            </div>
-            <h2>Tudo pronto por aqui!</h2>
-            <p class="confirm-msg">Finalize seu pedido pelo WhatsApp. Ao abrir o WhatsApp, anexe tambem o comprovante Pix na mesma mensagem antes de enviar.</p>
-            <button class="whatsapp-send-btn" onclick="sendToWhatsApp()">
-                Enviar Pedido pelo WhatsApp
-            </button>
-            <p class="confirm-note">Voce sera redirecionado ao WhatsApp com todos os detalhes do pedido.</p>
         </div>
     </div>
 
