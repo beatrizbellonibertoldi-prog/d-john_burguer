@@ -378,17 +378,6 @@ header > p::after  { left:  calc(100% + 10px); }
     box-shadow: 0 8px 22px rgba(201,162,77,0.55);
 }
 
-.finalize-order-btn {
-    width:100%; font-size:1em; padding:14px; margin-top:4px;
-    background: linear-gradient(135deg, #32bcad, #1a7a70);
-    color: #fff;
-    box-shadow: 0 4px 14px rgba(50,188,173,0.35);
-}
-
-.finalize-order-btn:hover {
-    box-shadow: 0 8px 22px rgba(50,188,173,0.55);
-}
-
 /* ─── BOTAO CARRINHO ────────────────────────── */
 .cart-btn {
     position:fixed; bottom:25px; right:25px;
@@ -581,169 +570,29 @@ header > p::after  { left:  calc(100% + 10px); }
 
 .checkout-form textarea { min-height:80px; resize:vertical; }
 
-/* ─── MODAL PIX ─────────────────────────────── */
-.pix-content { max-width:420px; }
-
-.pix-header { text-align:center; margin-bottom:20px; }
-
-.pix-logo-badge {
-    display:inline-flex; align-items:center; justify-content:center;
-    background:var(--pix-green); color:#fff;
-    font-weight:900; font-size:0.9em; letter-spacing:2px;
-    width:56px; height:56px; border-radius:16px;
-    margin-bottom:12px;
-    box-shadow:0 4px 16px rgba(50,188,173,0.4);
-}
-
-.pix-header h2 { padding-top:0; margin-bottom:4px; font-size:1.3em; }
-.pix-header h2::after { display:none; }
-.pix-subtitle { color:var(--text-muted); font-size:0.82em; }
-
-.pix-total-box {
-    display:flex; flex-direction:column; align-items:center;
-    background:rgba(50,188,173,0.08);
-    border:1px solid rgba(50,188,173,0.2);
-    border-radius:14px; padding:14px 20px; margin-bottom:20px;
-}
-
-.pix-total-label { font-size:0.72em; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
-.pix-total-value { font-size:1.8em; font-weight:800; color:var(--pix-green); letter-spacing:-0.5px; }
-
-/* QR CODE */
-.qr-wrapper {
-    display:flex; flex-direction:column; align-items:center;
-    margin-bottom:20px;
-}
-
-#qr-code-container {
-    background:#fff;
-    padding:12px;
-    border-radius:14px;
-    display:inline-block;
-    box-shadow:0 4px 20px rgba(0,0,0,0.4);
-}
-
-#qr-code-container img, #qr-code-container canvas { border-radius:6px; display:block; }
-
-#qr-code-img {
-    width: 180px;
-    height: 180px;
+/* ─── AVISO DE ENTREGA ──────────────────────── */
+.delivery-warning {
+    font-size: 0.78em;
+    color: var(--gold-light);
+    background: rgba(201,162,77,0.08);
+    border: 1px solid rgba(201,162,77,0.18);
+    padding: 10px 12px;
     border-radius: 12px;
-    display: block;
-    background: #fff;
-    padding: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    margin: 4px 0 12px;
+    line-height: 1.45;
 }
 
-.qr-label {
-    margin-top:10px; font-size:0.8em;
-    font-weight:700; color:var(--pix-green);
-    letter-spacing:1px; text-transform:uppercase;
+/* ─── BOTAO FINALIZAR WHATSAPP ──────────────── */
+.finalize-order-btn {
+    background: linear-gradient(135deg, #25d366, #1da851);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(37,211,102,0.35);
+    width:100%; font-size:1em; padding:14px; margin-top:4px;
 }
 
-/* CHAVE PIX */
-.pix-key-box {
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:12px; padding:14px 16px; margin-bottom:20px;
+.finalize-order-btn:hover {
+    box-shadow: 0 8px 22px rgba(37,211,102,0.55);
 }
-
-.pix-key-label { font-size:0.68em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); display:block; margin-bottom:8px; }
-
-.pix-key-row { display:flex; align-items:center; gap:10px; }
-
-.pix-key-value {
-    flex:1; font-size:0.88em; color:var(--white);
-    word-break:break-all; font-family:monospace; font-weight:600;
-}
-
-.copy-pix-btn {
-    background:var(--pix-green); color:#fff; border:none;
-    padding:8px 14px; border-radius:8px;
-    font-family:'DM Sans',sans-serif; font-size:0.78em; font-weight:700;
-    cursor:pointer; white-space:nowrap;
-    transition: background var(--transition), transform var(--transition);
-    flex-shrink:0;
-}
-
-.copy-pix-btn:hover { background:#28a99a; transform:scale(1.03); }
-.copy-pix-btn.copied { background:#2d6a4f; }
-
-/* PASSOS PIX */
-.pix-steps { margin-bottom:20px; display:flex; flex-direction:column; gap:8px; }
-
-.pix-step {
-    display:flex; align-items:center; gap:12px;
-    font-size:0.82em; color:var(--text-muted);
-}
-
-.step-num {
-    width:22px; height:22px; border-radius:50%;
-    background:rgba(50,188,173,0.15); border:1px solid rgba(50,188,173,0.3);
-    color:var(--pix-green); font-size:0.75em; font-weight:700;
-    display:flex; align-items:center; justify-content:center; flex-shrink:0;
-}
-
-/* BOTAO CONFIRMAR PAGAMENTO */
-.confirm-payment-btn {
-    width:100%; padding:15px; border:none; border-radius:var(--radius-btn);
-    background:linear-gradient(135deg,var(--pix-green),#1a7a70);
-    color:#fff; font-family:'DM Sans',sans-serif;
-    font-size:1em; font-weight:700; cursor:pointer; letter-spacing:0.3px;
-    box-shadow:0 4px 18px rgba(50,188,173,0.4);
-    transition: transform var(--transition), box-shadow var(--transition);
-    position:relative; overflow:hidden;
-}
-
-.confirm-payment-btn:hover {
-    transform:scale(1.02);
-    box-shadow:0 8px 26px rgba(50,188,173,0.6);
-}
-
-/* ─── MODAL CONFIRMACAO ─────────────────────── */
-.confirm-content { text-align:center; max-width:400px; padding:40px 32px; }
-
-.confirm-checkmark {
-    width:80px; height:80px; margin:0 auto 24px;
-}
-
-.confirm-checkmark svg { width:100%; height:100%; }
-
-.check-circle {
-    stroke:var(--pix-green); stroke-width:2;
-    stroke-dasharray:157; stroke-dashoffset:157;
-    animation:draw-circle 0.6s ease forwards;
-}
-
-.check-mark {
-    stroke:var(--pix-green); stroke-width:3;
-    stroke-linecap:round; stroke-linejoin:round;
-    stroke-dasharray:60; stroke-dashoffset:60;
-    animation:draw-check 0.4s ease 0.5s forwards;
-}
-
-@keyframes draw-circle { to { stroke-dashoffset:0; } }
-@keyframes draw-check  { to { stroke-dashoffset:0; } }
-
-.confirm-content h2 { padding-top:0; }
-.confirm-content h2::after { display:none; }
-.confirm-msg { color:var(--text-light); font-size:0.9em; margin:12px 0 24px; line-height:1.6; }
-
-.whatsapp-send-btn {
-    width:100%; padding:16px; border:none; border-radius:var(--radius-btn);
-    background:linear-gradient(135deg,#25d366,#1da851);
-    color:#fff; font-family:'DM Sans',sans-serif;
-    font-size:1.05em; font-weight:700; cursor:pointer; letter-spacing:0.3px;
-    box-shadow:0 4px 20px rgba(37,211,102,0.4);
-    transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.whatsapp-send-btn:hover {
-    transform:scale(1.03);
-    box-shadow:0 8px 28px rgba(37,211,102,0.6);
-}
-
-.confirm-note { margin-top:14px; font-size:0.75em; color:var(--text-muted); }
 
 /* ─── TOAST ─────────────────────────────────── */
 #toast-container {
@@ -834,7 +683,6 @@ footer.site-footer {
     .cart-btn { bottom:16px; right:16px; padding:12px 18px; font-size:0.95em; }
 
     .modal-content { width:100%; padding:24px 18px; border-radius:18px; }
-    .pix-content { padding:24px 16px; }
     .confirm-content { padding:32px 20px; }
 
     .footer-grid { grid-template-columns:1fr; gap:28px; padding:36px 20px 24px; }
