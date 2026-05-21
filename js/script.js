@@ -6,15 +6,6 @@
 const CONFIG = {
     whatsappNumber: "5517991489774",
 
-    // Chave Pix (telefone, CPF, email ou chave aleatoria)
-    pixKey: "17991489774",
-
-    // Nome que aparece no QR Code
-    pixName: "DJOHN Burger",
-
-    // Cidade para o QR Code Pix
-    pixCity: "SAO JOSE RIO PRETO",
-
     // Horario de funcionamento: so quinta-feira
     openDay:   4,   // 0=dom 1=seg 2=ter 3=qua 4=qui 5=sex 6=sab
     openHour:  19,
@@ -83,8 +74,6 @@ let pendingOrder = {};
 ════════════════════════════════════════════ */
 const cartModal   = document.getElementById("cartModal");
 const addonsModal = document.getElementById("addonsModal");
-const pixModal    = document.getElementById("pixModal");
-const confirmModal= document.getElementById("confirmModal");
 
 const cartItemsEl = document.getElementById("cart-items");
 const subtotalEl  = document.getElementById("subtotal");
@@ -356,87 +345,42 @@ function setError(id, on) {
 }
 
 /* ════════════════════════════════════════════
-   FLUXO PIX
+   ENVIAR PEDIDO DIRETO AO WHATSAPP
 ════════════════════════════════════════════ */
-function showPixPayment() {
+function sendToWhatsApp() {
     const name    = document.getElementById("customer-name").value.trim();
     const address = document.getElementById("customer-address").value.trim();
+    const notes   = document.getElementById("order-notes").value.trim();
 
     setError("customer-name", false);
     setError("customer-address", false);
 
     let err = false;
-    if (!name)    { setError("customer-name", true);    showToast("Informe seu nome.", "error");     err = true; }
-    if (!address) { setError("customer-address", true); if (!err) showToast("Informe o endereco.", "error"); err = true; }
+
+    if (!name) {
+        setError("customer-name", true);
+        showToast("Informe seu nome.", "error");
+        err = true;
+    }
+
+    if (!address) {
+        setError("customer-address", true);
+        if (!err) showToast("Informe o endereco.", "error");
+        err = true;
+    }
+
     if (err) return;
 
-    if (!cart.length) { showToast("Adicione itens ao carrinho.", "error"); return; }
+    if (!cart.length) {
+        showToast("Adicione itens ao carrinho.", "error");
+        return;
+    }
 
-    // Calcula total
-    let total = 0;
-    cart.forEach(item => { total += (item.finalPrice || item.price) * item.quantity; });
-
-    // Salva dados para uso apos pagamento
-    pendingOrder = {
-        name,
-        address,
-        notes: document.getElementById("order-notes").value.trim(),
-        total,
-    };
-
-    // Exibe modal Pix
-    document.getElementById("pix-total-value").textContent = fmt(total);
-    document.getElementById("pix-key-display").textContent = CONFIG.pixKey;
-
-    // QR Code estatico via imagem (img/qrcode.jpeg)
-
-    closeCart();
-    pixModal.classList.add("open");
-    document.body.style.overflow = "hidden";
-}
-
-function closePixModal() {
-    pixModal.classList.remove("open");
-    document.body.style.overflow = "";
-}
-
-/* ─── COPIAR CHAVE PIX ──────────────────────── */
-function copyPixKey() {
-    const key = CONFIG.pixKey;
-    navigator.clipboard.writeText(key).then(() => {
-        const btn = document.getElementById("copy-pix-btn");
-        btn.textContent = "Copiado!";
-        btn.classList.add("copied");
-        showToast("Chave Pix copiada!", "success");
-        setTimeout(() => {
-            btn.textContent = "Copiar Chave";
-            btn.classList.remove("copied");
-        }, 2500);
-    }).catch(() => {
-        // Fallback para browsers antigos
-        const el = document.createElement("textarea");
-        el.value = key;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand("copy");
-        document.body.removeChild(el);
-        showToast("Chave Pix copiada!", "success");
+    let subtotal = 0;
+    cart.forEach(item => {
+        subtotal += (item.finalPrice || item.price) * item.quantity;
     });
-}
 
-/* ─── CONFIRMAR PAGAMENTO ───────────────────── */
-function confirmPayment() {
-    closePixModal();
-    confirmModal.classList.add("open");
-    document.body.style.overflow = "hidden";
-}
-
-/* ════════════════════════════════════════════
-   ENVIAR PEDIDO AO WHATSAPP (so apos pagamento)
-   Mensagem sem emojis que geram "?" — usa apenas
-   texto puro e caracteres seguros para URL.
-════════════════════════════════════════════ */
-function sendToWhatsApp() {
     const lines = [];
 
     lines.push("PEDIDO D'JOHN BURGER");
@@ -446,6 +390,7 @@ function sendToWhatsApp() {
     cart.forEach(item => {
         const price = (item.finalPrice || item.price) * item.quantity;
         lines.push(item.quantity + "x " + item.name + " — " + fmt(price));
+
         if (item.addons && item.addons.length) {
             lines.push("   Adicionais: " + item.addons.map(a => a.name).join(", "));
         }
@@ -453,29 +398,33 @@ function sendToWhatsApp() {
 
     lines.push("");
     lines.push("------------------------------");
-    lines.push("TOTAL: " + fmt(pendingOrder.total));
+    lines.push("SUBTOTAL DOS ITENS: " + fmt(subtotal));
+    lines.push("TAXA DE ENTREGA: A calcular");
+    lines.push("TOTAL FINAL: A confirmar com a entrega");
     lines.push("------------------------------");
     lines.push("");
-    lines.push("Nome: " + pendingOrder.name);
-    lines.push("Endereco: " + pendingOrder.address);
-    lines.push("Pagamento: Pix (ja realizado)");
-    if (pendingOrder.notes) lines.push("Observacoes: " + pendingOrder.notes);
+    lines.push("Nome: " + name);
+    lines.push("Endereco para entrega: " + address);
+
+    if (notes) {
+        lines.push("Observacoes: " + notes);
+    }
+
     lines.push("");
-    lines.push("Tempo estimado: 40 a 60 minutos");
+    lines.push("Por favor, calcular a taxa de entrega para este endereco.");
+    lines.push("Aguardando confirmacao do valor final pelo WhatsApp.");
 
     const message = encodeURIComponent(lines.join("\n"));
     window.open("https://wa.me/" + CONFIG.whatsappNumber + "?text=" + message, "_blank");
 
-    // Limpa tudo
     cart = [];
     pendingOrder = {};
     saveCart();
     updateCart();
 
-    confirmModal.classList.remove("open");
-    document.body.style.overflow = "";
+    closeCart();
 
-    showToast("Pedido enviado! Aguarde confirmacao.", "success");
+    showToast("Pedido enviado para o WhatsApp!", "success");
 }
 
 /* ════════════════════════════════════════════
@@ -517,15 +466,12 @@ function initActiveNav() {
 function initModalEvents() {
     document.addEventListener("keydown", e => {
         if (e.key !== "Escape") return;
-        if (confirmModal.classList.contains("open")) { confirmModal.classList.remove("open"); document.body.style.overflow=""; }
-        else if (pixModal.classList.contains("open")) closePixModal();
-        else if (cartModal.classList.contains("open")) closeCart();
+        if (cartModal.classList.contains("open")) closeCart();
         else if (addonsModal.classList.contains("open")) closeAddonsModal();
     });
 
     addonsModal.addEventListener("click", e => { if (e.target === addonsModal) closeAddonsModal(); });
     cartModal.addEventListener("click",   e => { if (e.target === cartModal)   closeCart(); });
-    pixModal.addEventListener("click",    e => { if (e.target === pixModal)    closePixModal(); });
 }
 
 /* ════════════════════════════════════════════
