@@ -28,7 +28,7 @@ const productsData = {
     ],
 
     especiais: [
-        { id:9, name:"DJOHN", description:"Pao de brioche, maionese verde, hamburguer, mucarela, rucula, tomate, cebola roxa e bacon.", price:41.90, image:"../img/djohn.jpeg" },
+        { id:9, name:"Fã House", description:"Pao de brioche, maionese verde, hamburguer, mucarela, rucula, tomate, cebola roxa e bacon.", price:41.90, image:"../img/djohn.jpeg" },
         { id:10, name:"CREAM CHEESE", description:"Pao de brioche, maionese verde, hamburguer, cream cheese, mucarela e tomate.", price:40.90, image:"../img/cream-cheese.jpeg" },
         { id:11, name:"CHEDDAR MELT", description:"Pao de brioche, maionese verde, hamburguer, cheddar e bacon.", price:40.90, image:"../img/cheddar-melt.jpeg" },
         { id:12, name:"COMBO KIDS", description:"Hamburguer 90g, mucarela e batata individual.", price:29.90, image:"../img/batata-frita.jpg" },
@@ -100,9 +100,9 @@ function loadCart() {
 ════════════════════════════════════════════ */
 function showToast(msg, type = "success") {
     const colors = {
-        success: { bg:"#1a3326", border:"#2d6a4f", color:"#b7e4c7", icon:"+" },
+        success: { bg:"#2e1a1a", border:"#6b2424", color:"#f4b8b8", icon:"✓" },
         error:   { bg:"#3b1c1c", border:"#6b2424", color:"#f4b8b8", icon:"!" },
-        info:    { bg:"#1a1f3a", border:"#2d3a6a", color:"#b8c8f4", icon:"i" },
+        info:    { bg:"#1a1a2e", border:"#2d2d6a", color:"#b8b8f4", icon:"i" },
     };
     const c = colors[type] || colors.success;
     const t = document.createElement("div");
@@ -145,7 +145,6 @@ function updateStatusBar() {
         text.textContent = "Abertos agora  |  Quinta-feira das 19h as 22h";
     } else {
         bar.className = "status-bar closed";
-        const dias = ["domingo","segunda","terca","quarta","quinta","sexta","sabado"];
         text.textContent = "Fechado no momento  |  Abrimos toda quinta das 19h as 22h";
     }
 }
@@ -198,7 +197,7 @@ function openAddonsModal(product) {
                     <input type="checkbox" data-name="${addon.name}" data-price="${addon.price}">
                     <span>${addon.name}</span>
                 </div>
-               <span style="color:var(--red-light);font-weight:600;font-size:0.85em">+ ${fmt(addon.price)}</span>
+                <span style="color:var(--red-light);font-weight:600;font-size:0.85em">+ ${fmt(addon.price)}</span>
             </label>
         `;
     });
@@ -383,7 +382,7 @@ function sendToWhatsApp() {
 
     const lines = [];
 
-    lines.push("PEDIDO D'JOHN BURGER");
+    lines.push("PEDIDO FÃ BURGUER");
     lines.push("------------------------------");
     lines.push("");
 
