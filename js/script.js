@@ -198,7 +198,7 @@ function openAddonsModal(product) {
                     <input type="checkbox" data-name="${addon.name}" data-price="${addon.price}">
                     <span>${addon.name}</span>
                 </div>
-                <span style="color:var(--gold);font-weight:600;font-size:0.85em">+ ${fmt(addon.price)}</span>
+               <span style="color:var(--red-light);font-weight:600;font-size:0.85em">+ ${fmt(addon.price)}</span>
             </label>
         `;
     });
